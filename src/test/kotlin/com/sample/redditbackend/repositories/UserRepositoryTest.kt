@@ -13,8 +13,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 class UserRepositoryTest {
 
     /** Repository functions
-     * Save user
-     * Get User
+     * save user
+     * get User
+     * get by user name
      */
 
     @Autowired
@@ -37,6 +38,15 @@ class UserRepositoryTest {
     fun getUser(){
         val savedUser = userRepository.save(userEntity)
         val gotUser = userRepository.findById(savedUser.id).get()
+
+        Assertions.assertEquals(savedUser, gotUser)
+        Assertions.assertEquals(userEntity, gotUser)
+    }
+
+    @Test
+    fun getByUserName(){
+        val savedUser = userRepository.save(userEntity)
+        val gotUser = userRepository.findByUserNameContainingIgnoreCase(savedUser.userName).get()
 
         Assertions.assertEquals(savedUser, gotUser)
         Assertions.assertEquals(userEntity, gotUser)
