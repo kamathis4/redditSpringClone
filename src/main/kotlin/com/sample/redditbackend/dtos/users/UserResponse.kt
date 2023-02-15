@@ -1,8 +1,10 @@
 package com.sample.redditbackend.dtos.users
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.sample.redditbackend.utils.ExceptionUtils
 import com.sample.redditbackend.utils.ExceptionUtils.NOT_EMPTY
 import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.NotEmpty
 import org.jetbrains.annotations.NotNull
 
@@ -17,4 +19,7 @@ class UserResponse (
     @NotEmpty
     @Email
     var userEmail:String,
+    @field: NotNull
+    @NotEmpty
+    var userDesc:String,
 )

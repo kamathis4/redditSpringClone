@@ -3,6 +3,7 @@ package com.sample.redditbackend.dtos.users
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.sample.redditbackend.utils.ExceptionUtils
 import com.sample.redditbackend.utils.ExceptionUtils.MAX_LENGTH
+import com.sample.redditbackend.utils.ExceptionUtils.MAX_LENGTH_DESC
 import com.sample.redditbackend.utils.ExceptionUtils.MAX_LENGTH_EXCEEDED
 import com.sample.redditbackend.utils.ExceptionUtils.REGEXP_PASSWORD_MATCHER
 import jakarta.validation.constraints.Email
@@ -24,5 +25,10 @@ class UserRequest (
     @field: NotNull
     @Pattern(regexp = REGEXP_PASSWORD_MATCHER)
     @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
-    var userPassword:String
+    var userPassword:String,
+
+    @field: NotNull
+    @Max(value = MAX_LENGTH_DESC, message = MAX_LENGTH_EXCEEDED)
+    @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
+    var userDesc:String,
 )
