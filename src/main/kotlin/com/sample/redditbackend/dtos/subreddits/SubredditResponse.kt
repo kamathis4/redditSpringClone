@@ -9,6 +9,9 @@ import org.jetbrains.annotations.NotNull
 class SubredditResponse(
     @field: NotNull
     @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
+    var subredditId:String,
+    @field: NotNull
+    @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
     var subredditName:String,
     @field: NotNull
     @NotEmpty(message = ExceptionUtils.NOT_EMPTY)

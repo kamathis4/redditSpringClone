@@ -12,5 +12,7 @@ class CommentResponse (
     var commentId:String,
     @field: NotNull
     @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
-    var commentText:String
+    var commentText:String,
+    @field: NotNull
+    var commentUpvoteCount:Int
 )

@@ -8,4 +8,8 @@ open class SubredditEntity(
     open var subredditName: String,
     open var subredditDesc: String,
     open var subredditImage: String,
+
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "user_id")
+    open var user:UserEntity
     ) : BaseEntity()
