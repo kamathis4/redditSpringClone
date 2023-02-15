@@ -3,13 +3,15 @@ package com.sample.redditbackend.entities
 import com.sample.redditbackend.utils.SpringRequiredUtils.ENTITY_HASHCODE
 import jakarta.persistence.*
 import org.hibernate.Hibernate
+import org.hibernate.annotations.GenericGenerator
 import org.jetbrains.annotations.NotNull
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract class BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @NotNull
     open lateinit var id: String
 
