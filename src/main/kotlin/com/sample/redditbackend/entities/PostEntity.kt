@@ -16,7 +16,8 @@ open class PostEntity(
 
     open var postText:String,
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     open var user:UserEntity,
 
     @Column(nullable = false)
@@ -24,7 +25,6 @@ open class PostEntity(
 
     @ManyToOne
     @JoinColumn(name = "subreddit_id", nullable = false)
-    @JsonManagedReference
     open var subredditEntity: SubredditEntity,
 
     @Column(nullable = false)

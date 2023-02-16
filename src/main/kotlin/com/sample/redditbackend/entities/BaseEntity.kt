@@ -5,14 +5,16 @@ import jakarta.persistence.*
 import org.hibernate.Hibernate
 import org.hibernate.annotations.GenericGenerator
 import org.jetbrains.annotations.NotNull
+import java.util.UUID
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract class BaseEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid2")
     @NotNull
+    @Column(unique = true)
     open lateinit var id: String
 
     override fun hashCode(): Int = ENTITY_HASHCODE

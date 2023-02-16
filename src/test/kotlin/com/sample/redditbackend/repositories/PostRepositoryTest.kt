@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.data.domain.Pageable
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -27,7 +29,7 @@ class PostRepositoryTest {
      * get post by heading
      * upvote/downvote post, found by id
      * get All posts of subreddit, Pageable
-     * get All posts by User, Pageable
+     * get All posts by User id, Pageable
      */
 
     final val userEntity = UserEntity(
@@ -37,11 +39,29 @@ class PostRepositoryTest {
         userPassword = "password"
     )
 
+    final val userEntity1 = UserEntity(
+        userName = "name1",
+        userDesc = "desc",
+        userEmail = "email1",
+        userPassword = "password1"
+    )
+
     final val subreddit = SubredditEntity(
         subredditName = "subreddit",
         subredditImage = "image",
         subredditDesc = "Desc",
         user = userEntity
+    )
+    final val subreddit1 = SubredditEntity(
+        subredditName = "subreddit1",
+        subredditImage = "image3",
+        subredditDesc = "Desc2",
+        user = userEntity
+    )
+
+    val subredditList = listOf(
+        subreddit,
+        subreddit1
     )
 
     final val post = PostEntity(
@@ -75,27 +95,17 @@ class PostRepositoryTest {
 
     @Test
     fun getPost(){
-        userRepository.save(userEntity)
-        subredditRepository.save(subreddit)
-        val savedPost = postRepository.save(post)
-        val getPost = postRepository.findById(savedPost.id).get()
-        Assertions.assertEquals(savedPost, getPost)
+        userRepository.saveAll(listOf(userEntity, userEntity1))
+        subredditRepository.saveAll(subredditList)
+        val savedPost = postRepository.saveAll(postList)
+        val getPost = postRepository.findById(savedPost[0].id).get()
+        Assertions.assertEquals(savedPost.first(), getPost)
         Assertions.assertEquals(getPost, post)
     }
     @Test
-    fun getALLPost(){
-        userRepository.save(userEntity)
-        subredditRepository.save(subreddit)
-        val savedPost = postRepository.saveAll(postList)
-        val getPost = postRepository.findAllById(listOf(savedPost.first().id, savedPost.last().id)).toList()
-//        Assertions.assertEquals(savedPost, getPost)
-        Assertions.assertEquals(getPost.size, 2)
-    }
-    @Test
     fun getPostByHeading(){
-        postRepository.flush()
-        userRepository.save(userEntity)
-        subredditRepository.save(subreddit)
+        userRepository.saveAll(listOf(userEntity, userEntity1))
+        subredditRepository.saveAll(subredditList)
         postRepository.saveAll(postList)
         val getPage = postRepository.findAllByPostHeadingContainingIgnoreCase(post.postHeading, Pageable.ofSize(5))
 
@@ -106,14 +116,24 @@ class PostRepositoryTest {
 
     @Test
     fun getAllPostsBySubreddit(){
-        userRepository.save(userEntity)
-        subredditRepository.save(subreddit)
+        userRepository.saveAll(listOf(userEntity, userEntity1))
+        subredditRepository.saveAll(subredditList)
         postRepository.saveAll(postList)
-        val getPage = postRepository.findAllBySubredditEntitySubredditNameContaining(subreddit.subredditName, Pageable.ofSize(5))
+        val getPage = postRepository.findAllBySubredditEntitySubredditNameContainingIgnoreCase(subreddit.subredditName, Pageable.ofSize(5))
 
         val item = getPage.get().findFirst().get()
         Assertions.assertEquals(item, post)
         Assertions.assertEquals(getPage.content.size, 2)
+    }
+    @Test
+    fun getAllPostsByUser(){
+        userRepository.saveAll(listOf(userEntity, userEntity1))
+        subredditRepository.saveAll(subredditList)
+        postRepository.saveAll(postList)
+        val getPage = postRepository.findAllByUserIdContainingIgnoreCase(userEntity.id, Pageable.ofSize(5))
 
+        val item = getPage.get().findFirst().get()
+        Assertions.assertEquals(item, postList.first())
+        Assertions.assertEquals(getPage.content.size, 2)
     }
 }

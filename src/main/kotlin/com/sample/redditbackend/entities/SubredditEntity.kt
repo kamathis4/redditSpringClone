@@ -11,7 +11,6 @@ open class SubredditEntity(
     open var subredditImage: String,
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(nullable = false, name = "user_id")
     open var user:UserEntity
     ) : BaseEntity()
