@@ -17,7 +17,8 @@ open class CommentEntity(
     @JoinColumn(name = "post_id", nullable = false)
     open var parentPost: PostEntity,
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     open var user: UserEntity,
 
     @Column(nullable = false)
