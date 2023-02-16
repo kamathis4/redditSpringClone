@@ -1,5 +1,6 @@
 package com.sample.redditbackend.entities
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 
 @Entity
@@ -10,6 +11,7 @@ open class SubredditEntity(
     open var subredditImage: String,
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(nullable = false, name = "user_id")
     open var user:UserEntity
     ) : BaseEntity()

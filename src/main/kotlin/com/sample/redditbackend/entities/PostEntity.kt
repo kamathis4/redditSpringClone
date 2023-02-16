@@ -1,5 +1,7 @@
 package com.sample.redditbackend.entities
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.JoinColumn
@@ -10,6 +12,8 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "post")
 open class PostEntity(
+    open var postHeading:String,
+
     open var postText:String,
 
     @OneToOne(optional = false)
@@ -20,6 +24,7 @@ open class PostEntity(
 
     @ManyToOne
     @JoinColumn(name = "subreddit_id", nullable = false)
+    @JsonManagedReference
     open var subredditEntity: SubredditEntity,
 
     @Column(nullable = false)

@@ -15,6 +15,9 @@ class PostRequest (
     var subredditId:String,
     @field: NotNull
     @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
+    var postHeading:String,
+    @field: NotNull
+    @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
     var postText:String,
     @field: NotNull
     var postImage:String

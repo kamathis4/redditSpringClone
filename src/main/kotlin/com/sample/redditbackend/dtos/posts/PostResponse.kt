@@ -12,6 +12,9 @@ class PostResponse (
     var postId:String,
     @field: NotNull
     @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
+    var postHeading:String,
+    @field: NotNull
+    @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
     var postText:String,
     @field: NotNull
     var postImage:String,

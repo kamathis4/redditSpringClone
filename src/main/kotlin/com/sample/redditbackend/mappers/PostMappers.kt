@@ -12,7 +12,8 @@ fun PostRequest.toPostEntity(userEntity: UserEntity, subredditEntity: SubredditE
         user = userEntity,
         postImage = this.postImage,
         subredditEntity = subredditEntity,
-        upvoteCount = upvoteCount
+        upvoteCount = upvoteCount,
+        postHeading = this.postHeading
     )
 }
 
@@ -22,6 +23,7 @@ fun PostEntity.toPostResponse(noOfComments:Int): PostResponse {
         postText = this.postText,
         postImage = this.postImage,
         noOfUpvotes = this.upvoteCount,
-        noOfComments = noOfComments
+        noOfComments = noOfComments,
+        postHeading = this.postHeading
     )
 }
