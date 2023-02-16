@@ -19,7 +19,5 @@ class PostResponse (
     @field: NotNull
     var postImage:String,
     @field: NotNull
-    var noOfComments:Int,
-    @field: NotNull
     var noOfUpvotes:Int,
 )

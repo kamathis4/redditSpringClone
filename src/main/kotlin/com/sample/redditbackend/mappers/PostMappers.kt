@@ -17,13 +17,12 @@ fun PostRequest.toPostEntity(userEntity: UserEntity, subredditEntity: SubredditE
     )
 }
 
-fun PostEntity.toPostResponse(noOfComments:Int): PostResponse {
+fun PostEntity.toPostResponse(): PostResponse {
     return PostResponse(
         postId = this.id,
         postText = this.postText,
         postImage = this.postImage,
         noOfUpvotes = this.upvoteCount,
-        noOfComments = noOfComments,
         postHeading = this.postHeading
     )
 }

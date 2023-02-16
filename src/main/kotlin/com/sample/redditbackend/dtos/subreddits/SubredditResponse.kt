@@ -19,6 +19,4 @@ class SubredditResponse(
     @field: NotNull
     @NotEmpty(message = ExceptionUtils.NOT_EMPTY)
     var subredditImage:String,
-    @field: NotNull
-    var numberOfPosts:Int
 )

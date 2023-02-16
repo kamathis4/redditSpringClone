@@ -14,12 +14,11 @@ fun SubredditRequest.toSubredditEntity(userEntity: UserEntity): SubredditEntity 
     )
 }
 
-fun SubredditEntity.toSubredditResponse(noOfPosts: Int): SubredditResponse {
+fun SubredditEntity.toSubredditResponse(): SubredditResponse {
     return SubredditResponse(
         subredditId = this.id,
         subredditName = this.subredditName,
         subredditDesc = this.subredditDesc,
-        subredditImage = this.subredditImage,
-        numberOfPosts = noOfPosts
+        subredditImage = this.subredditImage
     )
 }
