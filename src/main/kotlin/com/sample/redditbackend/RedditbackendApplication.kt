@@ -1,9 +1,14 @@
 package com.sample.redditbackend
 
+import com.sample.redditbackend.config.SwaggerConfig
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.Import
+import org.springframework.scheduling.annotation.EnableAsync
 
 @SpringBootApplication
+@EnableAsync
+@Import(SwaggerConfig::class)
 class RedditbackendApplication
 
 fun main(args: Array<String>) {
@@ -12,12 +17,6 @@ fun main(args: Array<String>) {
 
 
 /** TODO
- * subreddit -> findAllByUser use only user id
- * post -> getPostBySubredditName use only subreddit id, getPostByUserId don't use ignore case for id
- * Upvote/downvote using id instead of request
- *
  * Change image storage to folder
- * Add valid to controller
  * Check all endpoints
- * Add Swagger/open api
  */
