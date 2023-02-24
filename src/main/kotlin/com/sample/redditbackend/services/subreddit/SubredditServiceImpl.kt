@@ -57,9 +57,9 @@ class SubredditServiceImpl : SubredditService {
         }
     }
 
-    override fun getAllSubredditsByUser(userEntity: UserEntity): List<SubredditResponse> {
+    override fun getAllSubredditsByUser(userId:String): List<SubredditResponse> {
         try {
-            return subredditRepository.findAllByUser(userEntity)
+            return subredditRepository.findAllByUserIdContaining(userId)
                 .stream().map { subredditEntity ->
                 subredditEntity.toSubredditResponse()
             }.collect(toList())

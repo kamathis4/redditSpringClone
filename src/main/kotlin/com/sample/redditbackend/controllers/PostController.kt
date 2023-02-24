@@ -68,9 +68,9 @@ class PostController {
     }
 
     @PutMapping(Endpoints.Post.upvotePost)
-    fun upvotePost(@RequestBody postRequest: PostRequest): ResponseEntity<PostResponse> {
+    fun upvotePost(@RequestBody id:String): ResponseEntity<PostResponse> {
         try {
-            return ResponseEntity.ok(postService.upvotePost(postRequest))
+            return ResponseEntity.ok(postService.upvotePost(id))
         } catch (e: Exception) {
             print(e.message)
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
@@ -78,9 +78,9 @@ class PostController {
     }
 
     @PutMapping(Endpoints.Post.downvotePost)
-    fun downvotePost(@RequestBody postRequest: PostRequest): ResponseEntity<PostResponse> {
+    fun downvotePost(@RequestBody id: String): ResponseEntity<PostResponse> {
         try {
-            return ResponseEntity.ok(postService.downvotePost(postRequest))
+            return ResponseEntity.ok(postService.downvotePost(id))
         } catch (e: Exception) {
             print(e.message)
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)

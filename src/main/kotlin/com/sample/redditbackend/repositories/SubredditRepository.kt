@@ -13,5 +13,5 @@ interface SubredditRepository:JpaRepository<SubredditEntity, String> {
 
     fun findAllBySubredditNameContainingIgnoreCase(subredditName: String, pageable: Pageable):Page<SubredditEntity>
 
-    fun findAllByUser(user:UserEntity):List<SubredditEntity>
+    fun findAllByUserIdContaining(id:String):List<SubredditEntity>
 }

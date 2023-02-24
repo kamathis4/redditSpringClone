@@ -27,7 +27,7 @@ class PostRepositoryTest {
      * save post
      * get post by id
      * get post by heading
-     * upvote/downvote post, found by id TODO
+     * upvote/downvote post, found by id
      * get All posts of subreddit, Pageable
      * get All posts by User id, Pageable
      */
@@ -130,7 +130,7 @@ class PostRepositoryTest {
         userRepository.saveAll(listOf(userEntity, userEntity1))
         subredditRepository.saveAll(subredditList)
         postRepository.saveAll(postList)
-        val getPage = postRepository.findAllByUserIdContainingIgnoreCase(userEntity.id, Pageable.ofSize(5))
+        val getPage = postRepository.findAllByUserIdContaining(userEntity.id, Pageable.ofSize(5))
 
         val item = getPage.get().findFirst().get()
         Assertions.assertEquals(item, postList.first())

@@ -73,7 +73,7 @@ class PostServiceImpl : PostService {
 
     override fun getPostByUserId(userId: String): List<PostResponse> {
         try {
-            val postPage = postRepository.findAllByUserIdContainingIgnoreCase(userId, Pageable.ofSize(PAGE_SIZE))
+            val postPage = postRepository.findAllByUserIdContaining(userId, Pageable.ofSize(PAGE_SIZE))
             return postPage.stream().map {postEntity->
                 postEntity.toPostResponse()
             }.collect(toList())
@@ -82,11 +82,11 @@ class PostServiceImpl : PostService {
         }
     }
 
-    override fun upvotePost(postRequest: PostRequest): PostResponse {
+    override fun upvotePost(postId: String): PostResponse {
         TODO("Not yet implemented")
     }
 
-    override fun downvotePost(postRequest: PostRequest): PostResponse {
+    override fun downvotePost(postId: String): PostResponse {
         TODO("Not yet implemented")
     }
 }

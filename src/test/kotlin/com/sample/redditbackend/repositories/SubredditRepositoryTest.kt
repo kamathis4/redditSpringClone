@@ -100,7 +100,7 @@ class SubredditRepositoryTest {
     fun getSubredditByUserName() {
         userRepository.save(userEntity)
         subredditRepository.saveAll(subredditList)
-        val getList = subredditRepository.findAllByUser(userEntity)
+        val getList = subredditRepository.findAllByUserIdContaining(userEntity.id)
 
         Assertions.assertEquals(getList.size, 2)
         Assertions.assertEquals(getList, subredditList)

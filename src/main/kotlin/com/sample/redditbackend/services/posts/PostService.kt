@@ -15,7 +15,7 @@ interface PostService {
 
     fun getPostByUserId(userId: String): List<PostResponse>
 
-    fun upvotePost(postRequest: PostRequest): PostResponse
+    fun upvotePost(postId: String): PostResponse
 
-    fun downvotePost(postRequest: PostRequest): PostResponse
+    fun downvotePost(postId: String): PostResponse
 }

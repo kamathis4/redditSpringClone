@@ -22,39 +22,39 @@ class SubredditController {
     fun saveSubreddit(@Valid @RequestBody subredditRequest: SubredditRequest): ResponseEntity<SubredditResponse> {
         try {
             return ResponseEntity.ok(subredditService.addSubreddit(subredditRequest))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             print(e.message)
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
         }
     }
 
     @GetMapping(Endpoints.Subreddit.getSubreddit)
-    fun getSubreddit(@PathVariable id: String): ResponseEntity<SubredditResponse>{
+    fun getSubreddit(@PathVariable id: String): ResponseEntity<SubredditResponse> {
         try {
             return ResponseEntity.ok(subredditService.getSubreddit(id))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             print(e.message)
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
         }
     }
 
     @GetMapping(Endpoints.Subreddit.getSubredditByName)
-    fun getSubredditByName(@PathVariable name: String): ResponseEntity<List<SubredditResponse>>{
+    fun getSubredditByName(@PathVariable name: String): ResponseEntity<List<SubredditResponse>> {
         try {
             return ResponseEntity.ok(subredditService.getSubredditByName(name))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             print(e.message)
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
         }
     }
 
     @GetMapping(Endpoints.Subreddit.getSubredditByUser)
-    fun getSubredditByUser(@PathVariable("name") userRequest: UserRequest): ResponseEntity<List<SubredditResponse>>{
+    fun getSubredditByUser(@PathVariable id: String): ResponseEntity<List<SubredditResponse>> {
         try {
-            return ResponseEntity.ok(subredditService.getAllSubredditsByUser(userRequest.toUserEntity()))
-        }catch (e:Exception){
+            return ResponseEntity.ok(subredditService.getAllSubredditsByUser(id))
+        } catch (e: Exception) {
             print(e.message)
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
         }
     }
 }

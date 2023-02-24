@@ -16,5 +16,5 @@ interface PostRepository : JpaRepository<PostEntity, String> {
         pageable: Pageable
     ): Page<PostEntity>
 
-    fun findAllByUserIdContainingIgnoreCase(id: String, pageable: Pageable): Page<PostEntity>
+    fun findAllByUserIdContaining(id: String, pageable: Pageable): Page<PostEntity>
 }

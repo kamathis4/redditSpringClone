@@ -12,5 +12,5 @@ interface SubredditService {
 
     fun getSubredditByName(subredditName: String): List<SubredditResponse>
 
-    fun getAllSubredditsByUser(userEntity: UserEntity): List<SubredditResponse>
+    fun getAllSubredditsByUser(userId:String): List<SubredditResponse>
 }
