@@ -6,6 +6,7 @@ import com.sample.redditbackend.dtos.posts.PostRequest
 import com.sample.redditbackend.dtos.posts.PostResponse
 import com.sample.redditbackend.services.comments.CommentService
 import com.sample.redditbackend.utils.Endpoints
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,7 +19,7 @@ class CommentController {
     lateinit var commentService: CommentService
 
     @PostMapping(Endpoints.Comment.saveComment)
-    fun saveComment(@RequestBody commentRequest: CommentRequest): ResponseEntity<CommentResponse> {
+    fun saveComment(@Valid @RequestBody commentRequest: CommentRequest): ResponseEntity<CommentResponse> {
         try {
             return ResponseEntity.ok(commentService.saveComment(commentRequest))
         } catch (e: Exception) {

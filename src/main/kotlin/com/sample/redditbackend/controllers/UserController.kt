@@ -5,6 +5,7 @@ import com.sample.redditbackend.dtos.users.UserResponse
 import com.sample.redditbackend.mappers.toUserEntity
 import com.sample.redditbackend.services.user.UserService
 import com.sample.redditbackend.utils.Endpoints
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,7 +23,7 @@ class UserController {
     lateinit var userService: UserService
 
     @PostMapping(Endpoints.User.saveUser)
-    fun saveUser(@RequestBody userRequest: UserRequest): ResponseEntity<UserResponse> {
+    fun saveUser(@Valid @RequestBody userRequest: UserRequest): ResponseEntity<UserResponse> {
         try {
             return ResponseEntity.ok(userService.addUser(userRequest))
         } catch (e: Exception) {

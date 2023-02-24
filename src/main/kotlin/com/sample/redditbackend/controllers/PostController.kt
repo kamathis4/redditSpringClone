@@ -5,6 +5,7 @@ import com.sample.redditbackend.dtos.posts.PostResponse
 import com.sample.redditbackend.dtos.users.UserRequest
 import com.sample.redditbackend.services.posts.PostService
 import com.sample.redditbackend.utils.Endpoints
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,7 +18,7 @@ class PostController {
     lateinit var postService: PostService
 
     @PostMapping(Endpoints.Post.savePost)
-    fun savePost(@RequestBody postRequest: PostRequest): ResponseEntity<PostResponse> {
+    fun savePost(@Valid @RequestBody postRequest: PostRequest): ResponseEntity<PostResponse> {
         try {
             return ResponseEntity.ok(postService.savePost(postRequest))
         } catch (e: Exception) {

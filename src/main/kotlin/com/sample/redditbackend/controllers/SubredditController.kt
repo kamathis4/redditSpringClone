@@ -6,6 +6,7 @@ import com.sample.redditbackend.dtos.users.UserRequest
 import com.sample.redditbackend.mappers.toUserEntity
 import com.sample.redditbackend.services.subreddit.SubredditService
 import com.sample.redditbackend.utils.Endpoints
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,7 +19,7 @@ class SubredditController {
     lateinit var subredditService: SubredditService
 
     @PostMapping(Endpoints.Subreddit.saveSubreddit)
-    fun saveSubreddit(@RequestBody subredditRequest: SubredditRequest): ResponseEntity<SubredditResponse> {
+    fun saveSubreddit(@Valid @RequestBody subredditRequest: SubredditRequest): ResponseEntity<SubredditResponse> {
         try {
             return ResponseEntity.ok(subredditService.addSubreddit(subredditRequest))
         }catch (e:Exception){
