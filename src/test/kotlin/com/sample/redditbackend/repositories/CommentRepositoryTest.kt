@@ -113,4 +113,32 @@ class CommentRepositoryTest {
         Assertions.assertEquals(item, comment1)
         Assertions.assertEquals(getPage.content.size, 2)
     }
+    @Test
+    fun upvoteComment(){
+        userRepository.save(userEntity)
+        subredditRepository.save(subreddit)
+        postRepository.save(post)
+        val savedComment = commentRepository.save(comment)
+        val getComment = commentRepository.findById(savedComment.id).get()
+        getComment.upvoteCount+=1
+        val upvotedComment = commentRepository.save(getComment)
+
+        Assertions.assertEquals(upvotedComment.id, getComment.id)
+        Assertions.assertEquals(upvotedComment.upvoteCount, 1)
+        Assertions.assertEquals(getComment.upvoteCount, 1)
+    }
+    @Test
+    fun downvoteComment(){
+        userRepository.save(userEntity)
+        subredditRepository.save(subreddit)
+        postRepository.save(post)
+        val savedComment = commentRepository.save(comment)
+        val getComment = commentRepository.findById(savedComment.id).get()
+        getComment.upvoteCount-=1
+        val upvotedComment = commentRepository.save(getComment)
+
+        Assertions.assertEquals(upvotedComment.id, getComment.id)
+        Assertions.assertEquals(upvotedComment.upvoteCount, 1)
+        Assertions.assertEquals(getComment.upvoteCount, 1)
+    }
 }

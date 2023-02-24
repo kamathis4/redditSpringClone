@@ -12,6 +12,7 @@ import com.sample.redditbackend.utils.SpringRequiredUtils.PAGE_SIZE
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.stream.Collectors.toList
 
 @Service
@@ -27,6 +28,7 @@ class CommentServiceImpl : CommentService {
     lateinit var commentRepository: CommentRepository
 
 
+    @Transactional
     override fun saveComment(commentRequest: CommentRequest): CommentResponse {
         try {
             val userId = commentRequest.userId
@@ -74,11 +76,25 @@ class CommentServiceImpl : CommentService {
         }
     }
 
+    @Transactional
     override fun upvoteComment(commentId: String): CommentResponse {
-        TODO("Not yet implemented")
+        try {
+            val comment = commentRepository.findById(commentId).orElseThrow { Exception("Comment not found") }
+            comment.upvoteCount += 1
+            return commentRepository.save(comment).toCommentResponse()
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
+    @Transactional
     override fun downvoteComment(commentId: String): CommentResponse {
-        TODO("Not yet implemented")
+        try {
+            val comment = commentRepository.findById(commentId).orElseThrow { Exception("Comment not found") }
+            comment.upvoteCount -= 1
+            return commentRepository.save(comment).toCommentResponse()
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }
