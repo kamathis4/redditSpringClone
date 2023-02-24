@@ -11,6 +11,7 @@ import com.sample.redditbackend.utils.SpringRequiredUtils.PAGE_SIZE
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.stream.Collectors.toList
 @Service
 class PostServiceImpl : PostService {
@@ -82,11 +83,27 @@ class PostServiceImpl : PostService {
         }
     }
 
+    @Transactional
     override fun upvotePost(postId: String): PostResponse {
-        TODO("Not yet implemented")
+        try {
+            val post = postRepository.findById(postId).orElseThrow { Exception("Unable to find post") }
+            post.upvoteCount+=1
+            val savedPost = postRepository.save(post)
+            return savedPost.toPostResponse()
+        }catch (e: Exception) {
+            throw e
+        }
     }
 
+    @Transactional
     override fun downvotePost(postId: String): PostResponse {
-        TODO("Not yet implemented")
+        try {
+            val post = postRepository.findById(postId).orElseThrow { Exception("Unable to find post") }
+            post.upvoteCount-=1
+            val savedPost = postRepository.save(post)
+            return savedPost.toPostResponse()
+        }catch (e: Exception) {
+            throw e
+        }
     }
 }

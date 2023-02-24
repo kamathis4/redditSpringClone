@@ -136,4 +136,26 @@ class PostRepositoryTest {
         Assertions.assertEquals(item, postList.first())
         Assertions.assertEquals(getPage.content.size, 2)
     }
+    @Test
+    fun upvotePost(){
+        userRepository.save(userEntity)
+        subredditRepository.save(subreddit)
+        val savedPost = postRepository.save(post)
+        savedPost.upvoteCount += 1
+        postRepository.save(savedPost)
+        val upvotedPost = postRepository.findById(savedPost.id).get()
+        Assertions.assertEquals(upvotedPost.upvoteCount, 1)
+        Assertions.assertEquals(upvotedPost.id, savedPost.id)
+    }
+    @Test
+    fun downvotePost(){
+        userRepository.save(userEntity)
+        subredditRepository.save(subreddit)
+        val savedPost = postRepository.save(post)
+        savedPost.upvoteCount -= 1
+        postRepository.save(savedPost)
+        val upvotedPost = postRepository.findById(savedPost.id).get()
+        Assertions.assertEquals(upvotedPost.upvoteCount, -1)
+        Assertions.assertEquals(upvotedPost.id, savedPost.id)
+    }
 }
